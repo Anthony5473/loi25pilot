@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Payment Confirmed — Your Loi25Pilot License Key</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><a href="index.html" style="color:#fff;text-decoration:none;">Loi25Pilot</a></div>
+  </header>
+  <main class="container">
+    <section class="card" style="max-width:680px;margin:24px auto;">
+      <h1>Thank You — Retrieving Your License Key</h1>
+      <p id="statusMsg" style="color:var(--muted);">Checking your checkout session...</p>
+      <div id="keyBox" style="display:none;background:#f0f9ff;border:1px solid #0284c7;border-radius:8px;padding:16px;margin:16px 0;">
+        <div style="font-size:12px;text-transform:uppercase;color:#0369a1;font-weight:700;">Your Loi25Pilot License Key</div>
+        <div id="licenseCode" style="font-family:monospace;font-size:20px;font-weight:700;margin:6px 0;"></div>
+        <a id="launchLink" href="index.html" class="btn btn-primary" style="display:inline-block;text-decoration:none;margin-top:8px;">Open Loi25Pilot Unlocked &rarr;</a>
+      </div>
+      <p style="font-size:13px;color:var(--muted);">Keep a copy of your key for future assessments and re-exports.</p>
+    </section>
+  </main>
+  <script src="js/config.js"></script>
+  <script>
+    (async function () {
+      const params = new URLSearchParams(window.location.search);
+      const checkoutId = params.get("checkout_id") || params.get("session_id") || "";
+      const statusMsg = document.getElementById("statusMsg");
+      const endpoint = (window.Loi25Config && window.Loi25Config.lookupEndpoint) || "";
+
+      if (!checkoutId) {
+        statusMsg.textContent = "No checkout_id found in URL. If you already have a license key, enter it directly on the main Loi25Pilot page.";
+        return;
+      }
+      if (!endpoint) {
+        statusMsg.textContent = "Live license lookup endpoint is not yet connected (pending production deployment).";
+        return;
+      }
+      try {
+        const resp = await fetch(`${endpoint}?checkout_id=${encodeURIComponent(checkoutId)}`);
+        const data = await resp.json();
+        if (resp.ok && data.licenseKey) {
+          statusMsg.textContent = "Your license key is active and ready:";
+          document.getElementById("licenseCode").textContent = data.licenseKey;
+          document.getElementById("launchLink").href = `index.html?key=${encodeURIComponent(data.licenseKey)}`;
+          document.getElementById("keyBox").style.display = "block";
+        } else {
+          statusMsg.textContent = data.reason || "Still finalizing webhook confirmation — refresh in 5 seconds.";
+        }
+      } catch (err) {
+        statusMsg.textContent = "Unable to reach verification server. Please retry shortly.";
+      }
+    })();
+  </script>
+</body>
+</html>

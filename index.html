@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Loi25Pilot — Quebec Law 25 Interactive PIA (ÉFVP) & Compliance Binder</title>
+  <meta name="description" content="Free Law 25 cross-border SaaS checker and 10-minute CAI-aligned Privacy Impact Assessment (PIA / ÉFVP) generator in .docx, PDF/HTML, and CSV. 100% client-side." />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does Quebec Law 25 apply to businesses outside Quebec?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Law 25 applies to any organization that collects, uses, or discloses personal information of Quebec residents, regardless of where the business is headquartered or its annual revenue."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When does Section 17 require a Privacy Impact Assessment (PIA / EFVP)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Section 17 requires a written PIA before communicating personal information outside Quebec, such as storing customer data in US-hosted SaaS platforms like Stripe, HubSpot, Mailchimp, or Google Workspace."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Loi25Pilot <span style="font-weight:400;font-size:13px;opacity:0.8;">Canada / Québec</span></div>
+    <button id="langToggleBtn" class="btn btn-ghost" type="button">Français (FR)</button>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div id="heroBadge" class="hero-badge">100% Client-Side • Zero Data Leaves Your Browser</div>
+      <h1 id="heroTitle">Generate a CAI-Aligned Law 25 Privacy Impact Assessment in 10 Minutes — Not $499+.</h1>
+      <p id="heroSubtitle">Built for Canadian & Quebec SMBs adopting US/cloud SaaS tools. Audit your cross-border transfers for free, then export a complete 7-section PIA (ÉFVP), Incident Register, and Governance Binder in Word (.docx), HTML/PDF, and CSV.</p>
+    </section>
+
+    <div id="disclaimerText" class="disclaimer">
+      Workflow & documentation software aligned with Quebec CAI guidelines. Not legal advice; consult qualified Quebec counsel for high-risk or complex legal opinions.
+    </div>
+
+    <section class="card">
+      <h2 id="step1Title">1. Free Law 25 Cross-Border SaaS Checker (Instant Risk Scan)</h2>
+      <p id="step1Desc" style="color:var(--muted);margin-top:0;"></p>
+      <div id="vendorGrid" class="vendor-grid"></div>
+
+      <h3 id="riskSummaryTitle" style="margin-top:20px;margin-bottom:8px;font-size:16px;">Instant Transfer & Readiness Assessment</h3>
+      <div class="metrics-row">
+        <div class="metric-box">
+          <div id="lblRiskScore" class="metric-label">Risk Score</div>
+          <div id="riskScoreValue" class="metric-val">0 / 100</div>
+        </div>
+        <div class="metric-box">
+          <div id="lblOutOfQc" class="metric-label">Out-of-Quebec Transfers</div>
+          <div id="outOfQcValue" class="metric-val">0</div>
+        </div>
+        <div class="metric-box">
+          <div id="lblPiaTriggered" class="metric-label">PIA / ÉFVP Triggered</div>
+          <div id="piaRequiredValue" class="metric-val">Yes</div>
+        </div>
+      </div>
+      <ul id="findingsList" style="margin:8px 0 0 18px;padding:0;font-size:14px;"></ul>
+    </section>
+
+    <section class="card">
+      <h2 id="wizardTitle">2. Guided 7-Section PIA (ÉFVP) & Compliance Binder Builder</h2>
+      <div class="two-col">
+        <div>
+          <label class="field"><span id="lblOrgName">Organization Legal Name</span>
+            <input id="orgName" type="text" value="Acme Maple Services Inc." />
+          </label>
+          <label class="field"><span id="lblProjectName">Project / SaaS Rollout Name</span>
+            <input id="projectName" type="text" value="Customer Portal & Cloud CRM Rollout" />
+          </label>
+          <label class="field"><span id="lblRprpName">Privacy Officer (RPRP) Name</span>
+            <input id="rprpName" type="text" value="Alex Tremblay" />
+          </label>
+          <label class="field"><span id="lblRprpEmail">Privacy Officer Public Email</span>
+            <input id="rprpEmail" type="email" value="privacy@acmemaple.ca" />
+          </label>
+          <label class="field"><span id="lblJurisdiction">Primary Business Jurisdiction</span>
+            <input id="jurisdiction" type="text" value="Ontario & Quebec, Canada" />
+          </label>
+          <label class="field"><span id="lblPurpose">Purpose of Collection / Processing</span>
+            <textarea id="purpose" rows="2">Customer account management, invoicing, support ticketing, and transactional updates.</textarea>
+          </label>
+          <label class="field"><span id="lblDataSubjects">Categories of Individuals</span>
+            <input id="dataSubjects" type="text" value="Customers, leads, and website visitors in Quebec & Canada" />
+          </label>
+          <label class="field"><span id="lblDataElements">Personal Information Collected</span>
+            <input id="dataElements" type="text" value="Full name, email, phone, billing address, IP address" />
+          </label>
+          <label class="field"><span id="lblRetention">Retention & Destruction Schedule</span>
+            <input id="retentionPeriod" type="text" value="3 years post-account closure (7 years for CRA/Revenu Quebec billing records)" />
+          </label>
+          <label class="check-row"><input id="sensitiveData" type="checkbox" /> <span id="chkSensitive">Collects sensitive personal data (SIN, health, biometric, financial)</span></label>
+          <label class="check-row"><input id="automatedDecisions" type="checkbox" /> <span id="chkAutomated">Uses automated decision-making / AI profiling (Sec. 12.1)</span></label>
+          <label class="check-row"><input id="noPrivacyOfficer" type="checkbox" /> <span id="chkNoRprp">Privacy Officer contact not yet published on website</span></label>
+        </div>
+
+        <div>
+          <div id="previewLabel" style="font-weight:600;font-size:13px;color:var(--primary);margin-bottom:6px;">Live 7-Section CAI PIA / ÉFVP Preview</div>
+          <pre id="livePreview" class="preview-box"></pre>
+
+          <div class="actions-bar">
+            <button id="freePreviewBtn" class="btn btn-secondary" type="button">Generate Free Preview (Watermarked)</button>
+            <button id="exportDocxBtn" class="btn btn-primary" type="button">Download PIA / ÉFVP (.docx)</button>
+            <button id="exportHtmlBtn" class="btn btn-primary" type="button">Download Print-Ready Binder (.html / PDF)</button>
+            <button id="exportIncidentBtn" class="btn btn-secondary" type="button">Download Incident Register (.csv)</button>
+            <button id="exportPolicyBtn" class="btn btn-secondary" type="button">Download Governance & Cookie Pack (.md)</button>
+          </div>
+
+          <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+            <input id="licenseKeyInput" type="text" placeholder="L25P-KIT-XXXX-XXXX-XXXX" style="padding:8px 10px;border:1px solid var(--border);border-radius:6px;min-width:240px;" />
+            <button id="unlockBtn" class="btn btn-secondary" type="button">Unlock Export (License Key)</button>
+            <span id="licenseStatus" class="status-err"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="card">
+      <h2 id="pricingTitle">Transparent SMB Pricing (No $249/mo Lock-In)</h2>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h3>Free Risk Checker</h3>
+          <div class="price-tag">$0</div>
+          <p style="font-size:14px;color:var(--muted);">Instant SaaS cross-border risk score, Section 17 flags, and watermarked PIA preview.</p>
+        </div>
+        <div class="price-card featured">
+          <h3>Law 25 Starter Binder</h3>
+          <div class="price-tag">$49 CAD <span style="font-size:13px;font-weight:400;">(~$35 USD one-time)</span></div>
+          <p style="font-size:14px;color:var(--muted);">Unlocks unwatermarked Word (.docx) + PDF/HTML 7-section PIA/ÉFVP, Incident Register (.csv), RPRP Designation & Cookie Notice. 10x less than $499 tools.</p>
+          <a id="checkoutKitLink" href="#pricing" class="btn btn-primary" style="display:inline-block;text-decoration:none;margin-top:8px;">Get Starter Binder</a>
+        </div>
+        <div class="price-card">
+          <h3>Agency / Multi-Vendor Pro</h3>
+          <div class="price-tag">$19 USD<span style="font-size:13px;font-weight:400;">/mo</span></div>
+          <p style="font-size:14px;color:var(--muted);">Unlimited client & vendor PIAs as your SaaS stack evolves, bilingual EN/FR exports, priority template updates.</p>
+          <a id="checkoutProLink" href="#pricing" class="btn btn-secondary" style="display:inline-block;text-decoration:none;margin-top:8px;">Get Agency Pro</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 id="faqTitle">Frequently Asked Questions (Law 25 / ÉFVP)</h2>
+      <p style="font-size:14px;"><strong>Does Law 25 apply outside Quebec?</strong> Yes — if you collect personal information from even one Quebec resident, Law 25 obligations (including Privacy Officer contact publication and Section 17 out-of-Quebec transfer PIAs) apply with no small-business exemption. <a href="law25-us-saas-transfers.html">English US SaaS Guide &rarr;</a> &bull; <a href="loi25-efvp-guide-fr.html">Guide ÉFVP en français &rarr;</a></p>
+      <p style="font-size:14px;"><strong>Why is Loi25Pilot 100% client-side?</strong> Your business name, Privacy Officer details, and data-flow notes are processed directly inside your browser and never transmitted to third-party servers.</p>
+    </section>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="data/vendors.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/pia_engine.js"></script>
+  <script src="js/docx_exporter.js"></script>
+  <script src="js/license.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
